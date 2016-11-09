@@ -19,15 +19,7 @@ system.update = function(dt)
 		if love.keyboard.isDown( "d") then
 			dx = 1
 		end
-		if love.keyboard.isDown("space") then
-			if not v.fire then
-				core.component.add(v,"fire",{left=true,right=true,center=true})
-			end
-		else
-			if v.fire then
-				core.component.remove(v,"fire")
-			end
-		end
+
 
 		hyp = math.sqrt(dx*dx+dy*dy)
 

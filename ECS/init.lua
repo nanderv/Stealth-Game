@@ -29,7 +29,8 @@ function core.reset_game()
 	game.entities= {}
 	game.entity_definitions={}
 	game.component_definitions={}
-
+	game.data = {}
+	game.data.tile_maps = {}
 	game.systems = {}
 	game.system_categories = {}
 	game.thread_count = 0

@@ -2,6 +2,8 @@ local loading = {}
 loading.loaded = 1
 -- Loading screen phases, split up loading code among these phases
 loading.loaded_paths = {}
+local tile_width = 32
+local tile_height = 32
 require 'zz_lib.core_maths'
 function my_require (str)
     loading.loaded_paths[str] = str
@@ -25,13 +27,34 @@ loading.phases = {
     end,
     require 'states.loading_functions.load_systems', 
     function()
+        core.entity.add(game.entity_definitions.enemies.empty_enemy(466,1, 2, {{x=466,y=0},{x=466,y=946},{x=398,y=946},{x=398,y=0}, {x= 398,y= 946}, {x= 466,y= 946}}))
+        core.entity.add(game.entity_definitions.enemies.empty_enemy(721,754, 2, {{x=722,y=754},{x=722,y=686},{x=174,y=686},{x=174,y=754}}))
+        core.entity.add(game.entity_definitions.enemies.empty_enemy(722,270, 2, {{x=142,y=270},{x=722,y=270}}))
+        core.entity.add(game.entity_definitions.enemies.empty_enemy(722,462, 2, {{x=142,y=462},{x=722,y=462}}))
 
-        core.entity.add(game.entity_definitions.enemies.empty_enemy(110,100, 2, {{x=100,y=100},{x=100,y=200},{x=200,y=200},{x=200,y=100}, {x= 400,y= 100}}))
-        core.entity.add(game.entity_definitions.enemies.empty_enemy(200,200, 2, {{x=600,y=600},{x=100,y=200}}))
-        core.entity.add(game.entity_definitions.player.player(400,400, 20))
-        core.entity.add(game.entity_definitions.wall.base_wall(500,400))
-
+        local pl = core.entity.add(game.entity_definitions.player.player(400,1100, 20))
+        
+        camera = core.entity.add(game.entity_definitions.player.camera(400,400, pl.id))
+        game.data.tile_maps["maps.level"] = {m = sti.new("maps/level.lua")}
+        game.data.tile_maps["maps.level"].e = core.entity.add(game.entity_definitions.tilemaps.fromStiMap("maps.level",0,0))
     end,
+    function()
+        for k,v in pairs(game.data.tile_maps) do
+            local i = 1
+            while v.m.layers["collision"..i] do
+                local layer = v.m.layers["collision"..i]
+                for y = 1, v.m.height do
+                     for x = 1, v.m.width do
+                        if layer.data[y][x] then
+                            print("TILE")
+                            core.entity.add(game.entity_definitions.wall.base_wall((x-0.5)*tile_width,(y-0.5)*tile_height))
+                        end
+                    end
+                end
+                i = i + 1
+            end
+        end
+    end
 }
 
 

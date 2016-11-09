@@ -3,12 +3,7 @@ core.requirements_to_systems = {}
 
 
 local function importance_func(x1, x2)
-	if not x1.importance then
-		return false
-	elseif not x2.importance then
-		return x1 >= 0
-	end
-	return x1.importance > x2.importance
+	return game.systems[x1].importance > game.systems[x2].importance
 end
 local function __genOrderedIndex( t )
     local orderedIndex = {}
@@ -58,7 +53,10 @@ function core.system.orderedPairs(t)
     return orderedNext, t, nil
 end
 function core.system.add(system,typ) 
-
+	if not system.importance then
+		print("HOI")
+		system.importance = 1
+	end
 
 	-- update requirements_to_systems array
 		for k,v in pairs(system.requirements) do

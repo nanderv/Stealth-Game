@@ -1,4 +1,4 @@
-SET game=BulletRain
+SET game=Stealth_Game
 dir
 rmdir build /s  /Q
 mkdir build

@@ -8,7 +8,9 @@ return function(x,y, rot)
 	agent.idle = {idle = 100}
 	agent.basic_move = {true}
 	agent.speed   = {speed = 100}
-	agent.bump_shape = {w = 32, h = 32}
+	agent.bump_shape = {w = 28, h = 28}
 	agent.angry_value = {anger = 1000}
+	agent.light_source= {255,0,0}
+
 	return agent
 end

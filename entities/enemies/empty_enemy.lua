@@ -7,7 +7,7 @@ return function(x,y, rot, route)
 	agent.managed_anger = {suspicion={time=5}}
 	agent.idle = {idle=100}
 	agent.current_route = {"idle", 1}
-		agent.bump_shape = {w = 32, h = 32}
+		agent.bump_shape = {w = 28, h = 28}
 
 	agent.routes = {idle=route}
 	agent.view_cone = {fov=100, distance = 600}

@@ -1,10 +1,15 @@
+local filters = {}
 local function filter_not(a)
-	return function(obj)
-		return obj ~= a
+	if not filters[a.id] then
+		filters[a.id] = function(obj)
+			return obj ~= a
+		end
 	end
+	
+	return filters[a.id]
 end
 local system = {}
-system.name = "draw_angry"
+system.name = "draw_los"
 system.draw = function()
 	for k,v in pairs(system.targets) do
 		local fov = v.view_cone.fov*math.pi/180
@@ -25,7 +30,6 @@ system.draw = function()
 		x2.y = x2.y + v.position.y
 		x3.x = x3.x + v.position.x
 		x3.y = x3.y + v.position.y
-		love.graphics.line(x1.x,x1.y,v.position.x,v.position.y,x2.x,x2.y)
 		x4.x = x4.x * 0.7
 		x4.y = x4.y * 0.7
 		for i=1,v.view_cone.fov/2 do
@@ -40,13 +44,16 @@ system.draw = function()
 				end
 			end
 			if item then
-				r = item.x1
-				s = item.y1
+				r = item.x2
+				s = item.y2
 			end
 			if item and item.item.angry_value then
-				print(item.ti1)
-				local more_anger = item.item.angry_value.anger  * item.ti1
-				print(more_anger)
+				core.component.add(v, "angry", {true})
+
+				if v.idle then 
+					core.component.remove(v, "idle")
+				end
+
 			end
 			love.graphics.line(r, s, v.position.x,v.position.y)
 		end

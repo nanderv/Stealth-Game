@@ -3,7 +3,7 @@ system.name = "draw_angry"
 system.draw = function()
 	for k,v in pairs(system.targets) do
 		love.graphics.setColor( 255,0,0)
-		love.graphics.circle("fill",v.position.x-10,v.position.y-10,20)
+		love.graphics.circle("fill",v.position.x,v.position.y,20)
 		love.graphics.setColor( 255,255,255)
 	end
 end

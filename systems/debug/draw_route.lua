@@ -1,6 +1,6 @@
 
 local system = {}
-system.name = "draw_angry"
+system.name = "draw_route"
 system.draw = function()
 	for k,v in pairs(system.targets) do
 		points = {}
